@@ -33,4 +33,11 @@ public class CheckListItemController {
                                                                      @PathVariable(value = "checklistItemId") Long id){
         return checkListItemService.getCheckListItemByChecklistIdAndId(checkListId, id);
     }
+
+    @DeleteMapping("/checklist/{checkListId}/item/{checklistItemId}")
+    public ResponseEntity<String> deleteCheckListItem(@PathVariable(value = "checkListId") Long checkListId,
+                                                @PathVariable(value = "checklistItemId") Long id){
+        checkListItemService.deleteByChecklistIdAndId(checkListId, id);
+        return new ResponseEntity<>("Check List deleted successfully", HttpStatus.OK);
+    }
 }

@@ -68,17 +68,13 @@ public class CheckListItemServiceImpl implements CheckListItemService {
 
     @Override
     public void deleteByChecklistIdAndId(Long checklistId, Long id) {
-        if(!checkListItemRepository.existsByChecklistIdAndId(checklistId, id)){
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, AppConstants.DATA_NOT_FOUND);
-        }
-
         CheckList checkList = checkListRepository.findById(checklistId).orElseThrow(
                 () -> new ResourceNotFoundException("Checklist", "id", checklistId));
 
         CheckListItem checkListItem = checkListItemRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("ChecklistItem", "id", id));
 
-        if(checkListItem.getChecklist().getId().equals(checkList.getId())){
+        if(!checkListItem.getChecklist().getId().equals(checkList.getId())){
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "ChecklistItem does not belongs to checklist");
         }
 
