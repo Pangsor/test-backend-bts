@@ -48,4 +48,11 @@ public class CheckListItemController {
         CheckListItemDto updatedCheckListItem = checkListItemService.renameItemByChecklistIdAndId(checkListId, id, checkListItemDto);
         return new ResponseEntity<>(updatedCheckListItem, HttpStatus.OK);
     }
+
+//    @PutMapping("/checklist/{checkListId}/item/{checklistItemId}")
+//    public ResponseEntity<CheckListItemDto> updateStatus(@PathVariable(value = "checkListId") Long checkListId,
+//                                                                @PathVariable(value = "checklistItemId") Long id){
+//        CheckListItemDto updatedCheckListItem = checkListItemService.updateStatusByChecklistIdAndId(checkListId, id);
+//        return new ResponseEntity<>(updatedCheckListItem, HttpStatus.OK);
+//    }
 }
