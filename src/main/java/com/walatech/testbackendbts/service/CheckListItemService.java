@@ -10,4 +10,5 @@ public interface CheckListItemService {
     List<CheckListItemDto> getCheckListItemByChecklistIdAndId(long checkListId, Long id);
     CheckListItemDto updateStatusByChecklistIdAndId(long checkListId, Long id);
     void deleteByChecklistIdAndId(Long checklistId,Long id);
+    CheckListItemDto renameItemByChecklistIdAndId(Long checklistId,Long id, CheckListItemDto checkListItemDto);
 }

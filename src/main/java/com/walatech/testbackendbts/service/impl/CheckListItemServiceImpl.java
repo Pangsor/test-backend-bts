@@ -82,6 +82,24 @@ public class CheckListItemServiceImpl implements CheckListItemService {
 
     }
 
+    @Override
+    public CheckListItemDto renameItemByChecklistIdAndId(Long checklistId, Long id, CheckListItemDto checkListItemDto) {
+        CheckList checkList = checkListRepository.findById(checklistId).orElseThrow(
+                () -> new ResourceNotFoundException("CheckList", "id", checklistId));
+
+        CheckListItem checkListItem = checkListItemRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("CheckListItem", "id", id));
+
+        if(!checkListItem.getChecklist().getId().equals(checkList.getId())){
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "CheckListItem does not belongs to CheckList");
+        }
+
+        checkListItem.setItemName(checkListItemDto.getItemName());
+
+        CheckListItem updatedCheckListItem = checkListItemRepository.save(checkListItem);
+        return mapToDTO(updatedCheckListItem);
+    }
+
     private CheckListItemDto mapToDTO(CheckListItem checkListItem){
         CheckListItemDto checkListItemDto = mapper.map(checkListItem, CheckListItemDto.class);
         return  checkListItemDto;

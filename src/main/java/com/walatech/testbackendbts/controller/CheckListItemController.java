@@ -40,4 +40,12 @@ public class CheckListItemController {
         checkListItemService.deleteByChecklistIdAndId(checkListId, id);
         return new ResponseEntity<>("Check List deleted successfully", HttpStatus.OK);
     }
+
+    @PutMapping("/checklist/{checkListId}/item/{checklistItemId}")
+    public ResponseEntity<CheckListItemDto> updateCheckListItem(@PathVariable(value = "checkListId") Long checkListId,
+                                                    @PathVariable(value = "checklistItemId") Long id,
+                                                    @Valid @RequestBody CheckListItemDto checkListItemDto){
+        CheckListItemDto updatedCheckListItem = checkListItemService.renameItemByChecklistIdAndId(checkListId, id, checkListItemDto);
+        return new ResponseEntity<>(updatedCheckListItem, HttpStatus.OK);
+    }
 }
